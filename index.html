@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub — Discover Your Next Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ============ NAVBAR ============ -->
+    <header class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="logo" id="logo">
+                <span class="logo-mark">◆</span>
+                <span class="logo-text">GAME<span class="logo-accent">HUB</span></span>
+            </a>
+
+            <nav class="nav-links" id="nav-links">
+                <button class="nav-link is-active" id="nav-home" data-route="home">Home</button>
+                <button class="nav-link" id="nav-explore" data-route="explore">Explore</button>
+                <button class="nav-link" id="nav-genres" data-route="genres">Genres</button>
+                <button class="nav-link" id="nav-trending" data-route="trending">Trending</button>
+                <button class="nav-link" id="nav-library" data-route="library">My Library</button>
+            </nav>
+
+            <div class="navbar-actions">
+                <button class="icon-btn" id="search-toggle" aria-label="Search">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <button class="profile-btn" id="profile-btn" aria-label="Profile">
+                    <span class="profile-avatar" id="profile-avatar"></span>
+                </button>
+                <button class="nav-burger" id="nav-burger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+
+        <!-- ============ HERO SECTION ============ -->
+        <section class="hero" id="hero-section">
+            <div class="hero-media">
+                <img id="hero-image" class="hero-image"
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231a1e24'/%3E%3Cstop offset='1' stop-color='%230a0c0f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23g)'/%3E%3Ctext x='800' y='470' font-family='Arial' font-size='90' fill='%23e8a33d' text-anchor='middle' opacity='0.35'%3E%E2%97%86%3C/text%3E%3C/svg%3E"
+                    alt="" data-game-id="">
+                <div class="hero-scanlines" aria-hidden="true"></div>
+                <div class="hero-fade"></div>
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-frame">
+                    <p class="hero-eyebrow" id="hero-eyebrow">FEATURED CARTRIDGE</p>
+                    <h1 class="hero-title" id="hero-title">&nbsp;</h1>
+                    <p class="hero-description" id="hero-description">&nbsp;</p>
+
+                    <ul class="hud-row" id="hero-meta">
+                        <li class="hud-chip" id="hero-genre-chip"><span class="hud-label">GENRE</span><span
+                                class="hud-value" id="hero-genre"></span></li>
+                        <li class="hud-chip" id="hero-rating-chip"><span class="hud-label">RATING</span><span
+                                class="hud-value" id="hero-rating"></span></li>
+                        <li class="hud-chip" id="hero-year-chip"><span class="hud-label">YEAR</span><span
+                                class="hud-value" id="hero-year"></span></li>
+                    </ul>
+
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" id="hero-explore-btn" data-game-id="">
+                            Explore Game
+                        </button>
+                        <button class="btn btn-ghost" id="hero-library-btn" data-game-id="">
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 5v14M5 12h14"></path>
+                            </svg>
+                            Add to Library
+                        </button>
+                    </div>
+                </div>
+
+                <div class="hero-dots" id="hero-dots" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <!-- ============ TRENDING GAMES ============ -->
+        <section class="section" id="trending-section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div>
+                        <p class="section-eyebrow">01 // LIVE RANKINGS</p>
+                        <h2 class="section-title">Trending Games</h2>
+                    </div>
+                    <button class="btn btn-outline" id="trending-view-all">View All</button>
+                </div>
+
+                <div class="game-grid" id="trending-games">
+                    <!-- JS will inject .game-card elements here from API data -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ POPULAR GAMES ============ -->
+        <section class="section section-alt" id="popular-section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div>
+                        <p class="section-eyebrow">02 // COMMUNITY PICKS</p>
+                        <h2 class="section-title">Popular Games</h2>
+                    </div>
+                    <button class="btn btn-outline" id="popular-view-all">View All</button>
+                </div>
+
+                <div class="game-grid" id="popular-games">
+                    <!-- JS will inject .game-card elements here from API data -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ GENRE SECTION ============ -->
+        <section class="section" id="genres-section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div>
+                        <p class="section-eyebrow">03 // BROWSE BY TYPE</p>
+                        <h2 class="section-title">Genres</h2>
+                    </div>
+                </div>
+
+                <div class="genre-grid" id="genre-grid">
+                    <button class="genre-card" data-genre="action" id="genre-action">
+                        <span class="genre-card-bg"></span>
+                        <span class="genre-card-overlay"></span>
+                        <span class="genre-card-body">
+                            <span class="genre-name">Action</span>
+                            <span class="genre-count" data-count-for="action">— titles</span>
+                        </span>
+                    </button>
+
+                    <button class="genre-card" data-genre="adventure" id="genre-adventure">
+                        <span class="genre-card-bg"></span>
+                        <span class="genre-card-overlay"></span>
+                        <span class="genre-card-body">
+                            <span class="genre-name">Adventure</span>
+                            <span class="genre-count" data-count-for="adventure">— titles</span>
+                        </span>
+                    </button>
+
+                    <button class="genre-card" data-genre="rpg" id="genre-rpg">
+                        <span class="genre-card-bg"></span>
+                        <span class="genre-card-overlay"></span>
+                        <span class="genre-card-body">
+                            <span class="genre-name">RPG</span>
+                            <span class="genre-count" data-count-for="rpg">— titles</span>
+                        </span>
+                    </button>
+
+                    <button class="genre-card" data-genre="racing" id="genre-racing">
+                        <span class="genre-card-bg"></span>
+                        <span class="genre-card-overlay"></span>
+                        <span class="genre-card-body">
+                            <span class="genre-name">Racing</span>
+                            <span class="genre-count" data-count-for="racing">— titles</span>
+                        </span>
+                    </button>
+
+                    <button class="genre-card" data-genre="strategy" id="genre-strategy">
+                        <span class="genre-card-bg"></span>
+                        <span class="genre-card-overlay"></span>
+                        <span class="genre-card-body">
+                            <span class="genre-name">Strategy</span>
+                            <span class="genre-count" data-count-for="strategy">— titles</span>
+                        </span>
+                    </button>
+
+                    <button class="genre-card" data-genre="sports" id="genre-sports">
+                        <span class="genre-card-bg"></span>
+                        <span class="genre-card-overlay"></span>
+                        <span class="genre-card-body">
+                            <span class="genre-name">Sports</span>
+                            <span class="genre-count" data-count-for="sports">— titles</span>
+                        </span>
+                    </button>
+
+                    <button class="genre-card" data-genre="horror" id="genre-horror">
+                        <span class="genre-card-bg"></span> <span class="genre-card-overlay"></span>
+                        <span class="genre-card-body">
+                            <span class="genre-name">Horror</span>
+                            <span class="genre-count" data-count-for="horror">— titles</span>
+                        </span>
+                    </button>
+
+                    <button class="genre-card" data-genre="simulation" id="genre-simulation">
+                        <span class="genre-card-bg"></span> <span class="genre-card-overlay"></span>
+                        <span class="genre-card-body">
+                            <span class="genre-name">Simulation</span>
+                            <span class="genre-count" data-count-for="simulation">— titles</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ EXPLORE SECTION ============ -->
+        <section class="section section-alt" id="explore-section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div>
+                        <p class="section-eyebrow">04 // FULL CATALOG</p>
+                        <h2 class="section-title">Explore</h2>
+                    </div>
+                </div>
+
+                <div class="explore-controls" id="explore-controls">
+                    <div class="control control-search">
+                        <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="search-input" class="control-input" placeholder="Search the catalog…"
+                            autocomplete="off">
+                    </div>
+
+                    <div class="control">
+                        <label class="control-label" for="genre-filter">Genre</label>
+                        <select id="genre-filter" class="control-select">
+                            <option value="all">All genres</option>
+                            <option value="action">Action</option>
+                            <option value="adventure">Adventure</option>
+                            <option value="rpg">RPG</option>
+                            <option value="racing">Racing</option>
+                            <option value="strategy">Strategy</option>
+                            <option value="sports">Sports</option>
+                            <option value="horror">Horror</option>
+                            <option value="simulation">Simulation</option>
+                        </select>
+                    </div>
+
+                    <div class="control">
+                        <label class="control-label" for="sort-filter">Sort by</label>
+                        <select id="sort-filter" class="control-select">
+                            <option value="relevance">Relevance</option>
+                            <option value="rating-desc">Rating: High to Low</option>
+                            <option value="rating-asc">Rating: Low to High</option>
+                            <option value="release-desc">Newest First</option>
+                            <option value="release-asc">Oldest First</option>
+                            <option value="alpha">A → Z</option>
+                        </select>
+                    </div>
+
+                    <div class="control">
+                        <label class="control-label" for="rating-filter">Min. Rating</label>
+                        <select id="rating-filter" class="control-select">
+                            <option value="0">Any rating</option>
+                            <option value="3">3+</option>
+                            <option value="4">4+</option>
+                            <option value="4.5">4.5+</option>
+                        </select>
+                    </div>
+
+                    <div class="control">
+                        <label class="control-label" for="year-filter">Release Year</label>
+                        <select id="year-filter" class="control-select">
+                            <option value="all">Any year</option>
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="older">Before 2023</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary control-apply" id="apply-filters">Apply</button>
+                </div>
+
+                <div class="game-grid" id="explore-games">
+                    <!-- JS will inject filtered .game-card elements here from API data -->
+                </div>
+
+                <div class="explore-status" id="explore-status" hidden>
+                    <p id="explore-status-text">No games matched these filters.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============ GAME CARD TEMPLATE (for JS to clone) ============ -->
+    <template id="game-card-template">
+        <article class="game-card" data-game-id="" data-genre="">
+            <div class="game-image-wrap">
+                <img class="game-image"
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 533'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231a1e24'/%3E%3Cstop offset='1' stop-color='%230a0c0f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='533' fill='url(%23g)'/%3E%3Ctext x='200' y='280' font-family='Arial' font-size='40' fill='%23e8a33d' text-anchor='middle' opacity='0.4'%3E%E2%97%86%3C/text%3E%3C/svg%3E"
+                    alt="" loading="lazy">
+                <button class="favorite-btn" aria-label="Add to favorites" data-game-id="">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z">
+                        </path>
+                    </svg>
+                </button>
+                <span class="game-rating-badge">
+                    <svg class="icon icon-xs" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.2l7.1-.6z"></path>
+                    </svg>
+                    <span class="game-rating"></span>
+                </span>
+            </div>
+            <div class="game-info">
+                <h3 class="game-title"></h3>
+                <div class="game-meta">
+                    <span class="game-genre"></span>
+                    <span class="game-year"></span>
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <!-- ============ GAME DETAILS MODAL ============ -->
+    <div class="modal" id="game-modal" aria-hidden="true">
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button class="modal-close" id="modal-close" aria-label="Close">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="modal-media">
+                <img id="modal-image" class="modal-image"
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 720'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231a1e24'/%3E%3Cstop offset='1' stop-color='%230a0c0f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='640' height='720' fill='url(%23g)'/%3E%3Ctext x='320' y='375' font-family='Arial' font-size='60' fill='%23e8a33d' text-anchor='middle' opacity='0.4'%3E%E2%97%86%3C/text%3E%3C/svg%3E"
+                    alt="">
+            </div>
+
+            <div class="modal-body">
+                <h2 class="modal-title" id="modal-title">&nbsp;</h2>
+                <p class="modal-description" id="modal-description">&nbsp;</p>
+
+                <ul class="hud-row hud-row-wrap" id="modal-meta">
+                    <li class="hud-chip"><span class="hud-label">RATING</span><span class="hud-value"
+                            id="modal-rating"></span></li>
+                    <li class="hud-chip"><span class="hud-label">RELEASE</span><span class="hud-value"
+                            id="modal-release-date"></span></li>
+                    <li class="hud-chip"><span class="hud-label">DEVELOPER</span><span class="hud-value"
+                            id="modal-developer"></span></li>
+                </ul>
+
+                <div class="modal-tags-group">
+                    <p class="modal-tags-label">Genres</p>
+                    <div class="modal-tags" id="modal-genres"></div>
+                </div>
+
+                <div class="modal-tags-group">
+                    <p class="modal-tags-label">Platforms</p>
+                    <div class="modal-tags" id="modal-platforms"></div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-primary" id="modal-add-library-btn" data-game-id="">Add to Library</button>
+                    <button class="btn btn-ghost" id="modal-wishlist-btn" data-game-id="">Save for Later</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MY LIBRARY ============ -->
+    <section class="section" id="library-section">
+        <div class="section-inner">
+            <div class="section-head">
+                <div>
+                    <p class="section-eyebrow">05 // YOUR COLLECTION</p>
+                    <h2 class="section-title">My Library</h2>
+                </div>
+            </div>
+
+            <div class="library-tabs" id="library-tabs">
+                <button class="library-tab is-active" data-target="favorite-games" id="tab-favorites">Favorites</button>
+                <button class="library-tab" data-target="wishlist-games" id="tab-wishlist">Wishlist</button>
+                <button class="library-tab" data-target="recent-games" id="tab-recent">Recently Viewed</button>
+            </div>
+
+            <div class="library-panel">
+                <div class="game-grid" id="favorite-games">
+                    <!-- JS will inject saved favorite .game-card elements here (localStorage) -->
+                </div>
+                <div class="game-grid" id="wishlist-games" hidden>
+                    <!-- JS will inject wishlist .game-card elements here (localStorage) -->
+                </div>
+                <div class="game-grid" id="recent-games" hidden>
+                    <!-- JS will inject recently viewed .game-card elements here (localStorage) -->
+                </div>
+            </div>
+
+            <p class="library-empty-hint" id="library-empty-hint">Your library is empty right now — games you save will
+                show up here.</p>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer" id="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="#" class="logo" id="footer-logo">
+                    <span class="logo-mark">◆</span>
+                    <span class="logo-text">GAME<span class="logo-accent">HUB</span></span>
+                </a>
+                <p class="footer-tagline">Discover, track, and build your next game library.</p>
+            </div>
+
+            <div class="footer-col">
+                <p class="footer-heading">Company</p>
+                <a href="#" class="footer-link" id="footer-about">About</a>
+                <a href="#" class="footer-link" id="footer-contact">Contact</a>
+                <a href="#" class="footer-link" id="footer-github">GitHub</a>
+            </div>
+
+            <div class="footer-col">
+                <p class="footer-heading">Follow</p>
+                <div class="footer-socials" id="footer-socials">
+                    <a href="#" class="social-btn" aria-label="Twitter / X" id="social-twitter">✕</a>
+                    <a href="#" class="social-btn" aria-label="Discord" id="social-discord">◈</a>
+                    <a href="#" class="social-btn" aria-label="YouTube" id="social-youtube">▶</a>
+                    <a href="#" class="social-btn" aria-label="Instagram" id="social-instagram">◎</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p id="footer-copyright">© <span id="footer-year">2026</span> GameHub. Game data via
+                <a href="https://www.freetogame.com" class="footer-attribution" target="_blank"
+                    rel="noopener noreferrer">FreeToGame</a>. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
