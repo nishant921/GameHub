@@ -1,5 +1,3 @@
-
-
 const API_BASE_URL = "https://www.freetogame.com/api";
 
 // FreeToGame's category/tag vocabulary doesn't line up one-to-one with
@@ -78,6 +76,13 @@ function buildUrl(path, params = {}) {
     return url.toString();
 }
 
+class ApiError extends Error {
+    constructor(kind, message) {
+        super(message);
+        this.kind = kind;
+    }
+}
+
 async function cachedFetch(url) {
     if (apiCache.has(url)) {
         return apiCache.get(url);
@@ -112,13 +117,6 @@ async function cachedFetch(url) {
         // Don't cache failures — allow retrying later.
         apiCache.delete(url);
         throw err;
-    }
-}
-
-class ApiError extends Error {
-    constructor(kind, message) {
-        super(message);
-        this.kind = kind;
     }
 }
 
@@ -396,6 +394,14 @@ function createGameCard(game) {
     card.dataset.gameId = game.id;
     card.dataset.genre = (game.genre || "").toLowerCase();
 
+    // The card opens the modal on click, so it needs to be reachable and
+    // operable from the keyboard too (Tab to focus, Enter/Space to
+    // activate) — without this, keyboard and screen-reader users simply
+    // can't open a game's details.
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", `View details for ${game.title}`);
+
     const image = card.querySelector(".game-image");
     if (game.image) {
         image.src = game.image;
@@ -428,6 +434,14 @@ function createGameCard(game) {
     card.addEventListener("click", (event) => {
         if (event.target.closest(".favorite-btn")) return;
         openGameModal(game);
+    });
+
+    card.addEventListener("keydown", (event) => {
+        if (event.target.closest(".favorite-btn")) return;
+        if (event.key === "Enter" || event.key === " " || event.key === "Spacebar") {
+            event.preventDefault();
+            openGameModal(game);
+        }
     });
 
     favoriteBtn.addEventListener("click", (event) => {
@@ -605,6 +619,7 @@ function openGameModal(game) {
     populateModal(game);
     dom.gameModal.setAttribute("aria-hidden", "false");
     addToRecentlyViewed(game.id);
+    dom.modalClose.focus();
 
     // Enrich with full details (real description) if this game came from
     // a list endpoint rather than the detail endpoint.
@@ -1026,6 +1041,7 @@ function setupNavbar() {
         dom.navBurger.addEventListener("click", () => {
             const isOpen = dom.navLinks.classList.toggle("is-open");
             dom.navBurger.classList.toggle("is-open", isOpen);
+            dom.navBurger.setAttribute("aria-expanded", String(isOpen));
         });
     }
 
@@ -1056,6 +1072,7 @@ function setupNavbar() {
 function closeMobileNav() {
     dom.navLinks.classList.remove("is-open");
     dom.navBurger?.classList.remove("is-open");
+    dom.navBurger?.setAttribute("aria-expanded", "false");
 }
 
 function setupViewAllButtons() {
