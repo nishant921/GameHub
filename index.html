@@ -33,7 +33,11 @@
         content="Explore trending and popular free-to-play games, browse by genre, and build your personal game library."
     >
     <meta property="og:image" content="https://gamehubapk.netlify.app/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="GameHub — discover free-to-play games">
     <meta property="og:site_name" content="GameHub">
+    <meta property="og:locale" content="en_US">
 
     <!-- Twitter/X -->
     <meta name="twitter:card" content="summary_large_image">
@@ -46,42 +50,75 @@
 
     <!-- Favicon -->
     <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
     <!-- Theme -->
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#0a0c0f">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.freetogame.com">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" >
     <link rel="stylesheet" href="style.css">
+
+    <!-- Structured data: helps search engines understand this is a
+         searchable game-discovery site and enables a sitelinks search
+         box in results. Keep in sync with the real search endpoint —
+         Explore's search is client-side only today, so this documents
+         intent for when/if a real query-string entry point exists. -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "GameHub",
+        "url": "https://gamehubapk.netlify.app/",
+        "description": "Discover free-to-play games on GameHub. Explore trending games, popular games, genres, and build your personal game library.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "GameHub",
+            "url": "https://gamehubapk.netlify.app/"
+        }
+    }
+    </script>
 </head>
 
 <body>
 
+    <!-- Fallback for crawlers/users without JS — the catalog itself is
+         rendered client-side from the FreeToGame API, so without
+         JavaScript the grids below stay empty. -->
+    <noscript>
+        <p style="padding:16px;text-align:center;background:#1a1e24;color:#f3f1eb;font-family:sans-serif;">
+            GameHub needs JavaScript enabled to load and display games.
+        </p>
+    </noscript>
+
     <!-- ============ NAVBAR ============ -->
     <header class="navbar" id="navbar">
         <div class="navbar-inner">
-            <a href="#" class="logo" id="logo">
+            <a href="#hero-section" class="logo" id="logo">
                 <span class="logo-mark">◆</span>
                 <span class="logo-text">GAME<span class="logo-accent">HUB</span></span>
             </a>
 
-            <nav class="nav-links" id="nav-links">
-                <button class="nav-link is-active" id="nav-home" data-route="home">Home</button>
-                <button class="nav-link" id="nav-explore" data-route="explore">Explore</button>
-                <button class="nav-link" id="nav-genres" data-route="genres">Genres</button>
-                <button class="nav-link" id="nav-trending" data-route="trending">Trending</button>
-                <button class="nav-link" id="nav-library" data-route="library">My Library</button>
+            <nav class="nav-links" id="nav-links" aria-label="Primary">
+                <button class="nav-link is-active" id="nav-home" data-route="home" type="button">Home</button>
+                <button class="nav-link" id="nav-explore" data-route="explore" type="button">Explore</button>
+                <button class="nav-link" id="nav-genres" data-route="genres" type="button">Genres</button>
+                <button class="nav-link" id="nav-trending" data-route="trending" type="button">Trending</button>
+                <button class="nav-link" id="nav-library" data-route="library" type="button">My Library</button>
             </nav>
 
             <div class="navbar-actions">
-                <button class="icon-btn" id="search-toggle" aria-label="Search">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <button class="icon-btn" id="search-toggle" type="button" aria-label="Search">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <circle cx="11" cy="11" r="7"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
                 </button>
-                <button class="profile-btn" id="profile-btn" aria-label="Profile">
+                <button class="profile-btn" id="profile-btn" type="button" aria-label="Profile">
                     <span class="profile-avatar" id="profile-avatar"></span>
                 </button>
-                <button class="nav-burger" id="nav-burger" aria-label="Menu">
+                <button class="nav-burger" id="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
                     <span></span><span></span><span></span>
                 </button>
             </div>
@@ -93,7 +130,7 @@
         <!-- ============ HERO SECTION ============ -->
         <section class="hero" id="hero-section">
             <div class="hero-media">
-                <img id="hero-image" class="hero-image"
+                <img id="hero-image" class="hero-image" fetchpriority="high"
                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231a1e24'/%3E%3Cstop offset='1' stop-color='%230a0c0f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23g)'/%3E%3Ctext x='800' y='470' font-family='Arial' font-size='90' fill='%23e8a33d' text-anchor='middle' opacity='0.35'%3E%E2%97%86%3C/text%3E%3C/svg%3E"
                     alt="" data-game-id="">
                 <div class="hero-scanlines" aria-hidden="true"></div>
@@ -116,12 +153,12 @@
                     </ul>
 
                     <div class="hero-actions">
-                        <button class="btn btn-primary" id="hero-explore-btn" data-game-id="">
+                        <button class="btn btn-primary" id="hero-explore-btn" type="button" data-game-id="">
                             Explore Game
                         </button>
-                        <button class="btn btn-ghost" id="hero-library-btn" data-game-id="">
+                        <button class="btn btn-ghost" id="hero-library-btn" type="button" data-game-id="">
                             <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
+                                stroke-width="2" aria-hidden="true">
                                 <path d="M12 5v14M5 12h14"></path>
                             </svg>
                             Add to Library
@@ -129,7 +166,7 @@
                     </div>
                 </div>
 
-                <div class="hero-dots" id="hero-dots" aria-hidden="true"></div>
+                <div class="hero-dots" id="hero-dots" role="tablist" aria-label="Featured games"></div>
             </div>
         </section>
 
@@ -141,7 +178,7 @@
                         <p class="section-eyebrow">01 // LIVE RANKINGS</p>
                         <h2 class="section-title">Trending Games</h2>
                     </div>
-                    <button class="btn btn-outline" id="trending-view-all">View All</button>
+                    <button class="btn btn-outline" id="trending-view-all" type="button">View All</button>
                 </div>
 
                 <div class="game-grid" id="trending-games">
@@ -158,7 +195,7 @@
                         <p class="section-eyebrow">02 // COMMUNITY PICKS</p>
                         <h2 class="section-title">Popular Games</h2>
                     </div>
-                    <button class="btn btn-outline" id="popular-view-all">View All</button>
+                    <button class="btn btn-outline" id="popular-view-all" type="button">View All</button>
                 </div>
 
                 <div class="game-grid" id="popular-games">
@@ -178,7 +215,7 @@
                 </div>
 
                 <div class="genre-grid" id="genre-grid">
-                    <button class="genre-card" data-genre="action" id="genre-action">
+                    <button class="genre-card" data-genre="action" id="genre-action" type="button">
                         <span class="genre-card-bg"></span>
                         <span class="genre-card-overlay"></span>
                         <span class="genre-card-body">
@@ -187,7 +224,7 @@
                         </span>
                     </button>
 
-                    <button class="genre-card" data-genre="adventure" id="genre-adventure">
+                    <button class="genre-card" data-genre="adventure" id="genre-adventure" type="button">
                         <span class="genre-card-bg"></span>
                         <span class="genre-card-overlay"></span>
                         <span class="genre-card-body">
@@ -196,7 +233,7 @@
                         </span>
                     </button>
 
-                    <button class="genre-card" data-genre="rpg" id="genre-rpg">
+                    <button class="genre-card" data-genre="rpg" id="genre-rpg" type="button">
                         <span class="genre-card-bg"></span>
                         <span class="genre-card-overlay"></span>
                         <span class="genre-card-body">
@@ -205,7 +242,7 @@
                         </span>
                     </button>
 
-                    <button class="genre-card" data-genre="racing" id="genre-racing">
+                    <button class="genre-card" data-genre="racing" id="genre-racing" type="button">
                         <span class="genre-card-bg"></span>
                         <span class="genre-card-overlay"></span>
                         <span class="genre-card-body">
@@ -214,7 +251,7 @@
                         </span>
                     </button>
 
-                    <button class="genre-card" data-genre="strategy" id="genre-strategy">
+                    <button class="genre-card" data-genre="strategy" id="genre-strategy" type="button">
                         <span class="genre-card-bg"></span>
                         <span class="genre-card-overlay"></span>
                         <span class="genre-card-body">
@@ -223,7 +260,7 @@
                         </span>
                     </button>
 
-                    <button class="genre-card" data-genre="sports" id="genre-sports">
+                    <button class="genre-card" data-genre="sports" id="genre-sports" type="button">
                         <span class="genre-card-bg"></span>
                         <span class="genre-card-overlay"></span>
                         <span class="genre-card-body">
@@ -232,7 +269,7 @@
                         </span>
                     </button>
 
-                    <button class="genre-card" data-genre="horror" id="genre-horror">
+                    <button class="genre-card" data-genre="horror" id="genre-horror" type="button">
                         <span class="genre-card-bg"></span> <span class="genre-card-overlay"></span>
                         <span class="genre-card-body">
                             <span class="genre-name">Horror</span>
@@ -240,7 +277,7 @@
                         </span>
                     </button>
 
-                    <button class="genre-card" data-genre="simulation" id="genre-simulation">
+                    <button class="genre-card" data-genre="simulation" id="genre-simulation" type="button">
                         <span class="genre-card-bg"></span> <span class="genre-card-overlay"></span>
                         <span class="genre-card-body">
                             <span class="genre-name">Simulation</span>
@@ -263,12 +300,13 @@
 
                 <div class="explore-controls" id="explore-controls">
                     <div class="control control-search">
+                        <label class="visually-hidden" for="search-input">Search the catalog</label>
                         <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
+                            stroke-width="2" aria-hidden="true">
                             <circle cx="11" cy="11" r="7"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
-                        <input type="text" id="search-input" class="control-input" placeholder="Search the catalog…"
+                        <input type="search" id="search-input" class="control-input" placeholder="Search the catalog…"
                             autocomplete="off">
                     </div>
 
@@ -321,16 +359,49 @@
                         </select>
                     </div>
 
-                    <button class="btn btn-primary control-apply" id="apply-filters">Apply</button>
+                    <button class="btn btn-primary control-apply" id="apply-filters" type="button">Apply</button>
                 </div>
 
                 <div class="game-grid" id="explore-games">
                     <!-- JS will inject filtered .game-card elements here from API data -->
                 </div>
 
-                <div class="explore-status" id="explore-status" hidden>
+                <div class="explore-status" id="explore-status" role="status" aria-live="polite" hidden>
                     <p id="explore-status-text">No games matched these filters.</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- ============ MY LIBRARY ============ -->
+        <section class="section" id="library-section">
+            <div class="section-inner">
+                <div class="section-head">
+                    <div>
+                        <p class="section-eyebrow">05 // YOUR COLLECTION</p>
+                        <h2 class="section-title">My Library</h2>
+                    </div>
+                </div>
+
+                <div class="library-tabs" id="library-tabs" role="tablist" aria-label="Library">
+                    <button class="library-tab is-active" data-target="favorite-games" id="tab-favorites" type="button" role="tab" aria-selected="true">Favorites</button>
+                    <button class="library-tab" data-target="wishlist-games" id="tab-wishlist" type="button" role="tab" aria-selected="false">Wishlist</button>
+                    <button class="library-tab" data-target="recent-games" id="tab-recent" type="button" role="tab" aria-selected="false">Recently Viewed</button>
+                </div>
+
+                <div class="library-panel">
+                    <div class="game-grid" id="favorite-games">
+                        <!-- JS will inject saved favorite .game-card elements here (localStorage) -->
+                    </div>
+                    <div class="game-grid" id="wishlist-games" hidden>
+                        <!-- JS will inject wishlist .game-card elements here (localStorage) -->
+                    </div>
+                    <div class="game-grid" id="recent-games" hidden>
+                        <!-- JS will inject recently viewed .game-card elements here (localStorage) -->
+                    </div>
+                </div>
+
+                <p class="library-empty-hint" id="library-empty-hint">Your library is empty right now — games you save will
+                    show up here.</p>
             </div>
         </section>
 
@@ -342,16 +413,16 @@
             <div class="game-image-wrap">
                 <img class="game-image"
                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 533'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231a1e24'/%3E%3Cstop offset='1' stop-color='%230a0c0f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='533' fill='url(%23g)'/%3E%3Ctext x='200' y='280' font-family='Arial' font-size='40' fill='%23e8a33d' text-anchor='middle' opacity='0.4'%3E%E2%97%86%3C/text%3E%3C/svg%3E"
-                    alt="" loading="lazy">
-                <button class="favorite-btn" aria-label="Add to favorites" data-game-id="">
-                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    alt="" loading="lazy" decoding="async">
+                <button class="favorite-btn" type="button" aria-label="Add to favorites" aria-pressed="false" data-game-id="">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path
                             d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z">
                         </path>
                     </svg>
                 </button>
                 <span class="game-rating-badge">
-                    <svg class="icon icon-xs" viewBox="0 0 24 24" fill="currentColor">
+                    <svg class="icon icon-xs" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.2l7.1-.6z"></path>
                     </svg>
                     <span class="game-rating"></span>
@@ -371,8 +442,8 @@
     <div class="modal" id="game-modal" aria-hidden="true">
         <div class="modal-backdrop" id="modal-backdrop"></div>
         <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-            <button class="modal-close" id="modal-close" aria-label="Close">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="modal-close" id="modal-close" type="button" aria-label="Close">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
@@ -408,51 +479,18 @@
                 </div>
 
                 <div class="modal-actions">
-                    <button class="btn btn-primary" id="modal-add-library-btn" data-game-id="">Add to Library</button>
-                    <button class="btn btn-ghost" id="modal-wishlist-btn" data-game-id="">Save for Later</button>
+                    <button class="btn btn-primary" id="modal-add-library-btn" type="button" data-game-id="">Add to Library</button>
+                    <button class="btn btn-ghost" id="modal-wishlist-btn" type="button" data-game-id="">Save for Later</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ============ MY LIBRARY ============ -->
-    <section class="section" id="library-section">
-        <div class="section-inner">
-            <div class="section-head">
-                <div>
-                    <p class="section-eyebrow">05 // YOUR COLLECTION</p>
-                    <h2 class="section-title">My Library</h2>
-                </div>
-            </div>
-
-            <div class="library-tabs" id="library-tabs">
-                <button class="library-tab is-active" data-target="favorite-games" id="tab-favorites">Favorites</button>
-                <button class="library-tab" data-target="wishlist-games" id="tab-wishlist">Wishlist</button>
-                <button class="library-tab" data-target="recent-games" id="tab-recent">Recently Viewed</button>
-            </div>
-
-            <div class="library-panel">
-                <div class="game-grid" id="favorite-games">
-                    <!-- JS will inject saved favorite .game-card elements here (localStorage) -->
-                </div>
-                <div class="game-grid" id="wishlist-games" hidden>
-                    <!-- JS will inject wishlist .game-card elements here (localStorage) -->
-                </div>
-                <div class="game-grid" id="recent-games" hidden>
-                    <!-- JS will inject recently viewed .game-card elements here (localStorage) -->
-                </div>
-            </div>
-
-            <p class="library-empty-hint" id="library-empty-hint">Your library is empty right now — games you save will
-                show up here.</p>
-        </div>
-    </section>
-
     <!-- ============ FOOTER ============ -->
     <footer class="footer" id="footer">
         <div class="footer-inner">
             <div class="footer-brand">
-                <a href="#" class="logo" id="footer-logo">
+                <a href="#hero-section" class="logo" id="footer-logo">
                     <span class="logo-mark">◆</span>
                     <span class="logo-text">GAME<span class="logo-accent">HUB</span></span>
                 </a>
@@ -469,10 +507,10 @@
             <div class="footer-col">
                 <p class="footer-heading">Follow</p>
                 <div class="footer-socials" id="footer-socials">
-                    <a href="#" class="social-btn" aria-label="Twitter / X" id="social-twitter">✕</a>
-                    <a href="#" class="social-btn" aria-label="Discord" id="social-discord">◈</a>
-                    <a href="#" class="social-btn" aria-label="YouTube" id="social-youtube">▶</a>
-                    <a href="#" class="social-btn" aria-label="Instagram" id="social-instagram">◎</a>
+                    <a href="#" class="social-btn" aria-label="Twitter / X" id="social-twitter" rel="noopener noreferrer">✕</a>
+                    <a href="#" class="social-btn" aria-label="Discord" id="social-discord" rel="noopener noreferrer">◈</a>
+                    <a href="#" class="social-btn" aria-label="YouTube" id="social-youtube" rel="noopener noreferrer">▶</a>
+                    <a href="#" class="social-btn" aria-label="Instagram" id="social-instagram" rel="noopener noreferrer">◎</a>
                 </div>
             </div>
         </div>
